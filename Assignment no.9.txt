@@ -1,0 +1,177 @@
+
+
+
+
+
+#include<iostream>
+using namespace std;
+class Heap
+{
+ int H[20];
+ public:
+  Heap(){H[0]=0;}
+  void insert(int);
+  void Sort();
+};
+void Heap::insert(int Num)  //Creation of Heap 
+{
+ int i,T;
+ //H[0]  : Store the Total numbers of Elements 
+ i=++H[0];
+ cout<<"\n\ni :"<< i;
+ H[i]=Num;
+ while(i/2>0)
+    { if(H[i] > H[i/2])  // if  child > Parent 
+         { T=H[i];H[i]=H[i/2];H[i/2]=T;}// swap child & parent 
+      i=i/2; 
+    }
+ cout<<endl;
+ cout<<"h[0] "<<H[0]<<"\n";
+ for(i=0;i<=H[0];i++) cout<<" "<<H[i];
+}
+void Heap::Sort()
+{
+ int i=H[0],j,k,T;
+ while(i>1)
+   {  cout<<"\n______________________";
+       T=H[1];H[1]=H[i];H[i]=T;   //swap H[1] & H[i]
+       i--;
+       k=j=1;
+       while(j<=k)// place number at  proper location(Maintain Max Heap) 
+	  {
+         if((j*2+1)<=i)  
+	       {  //compare left & right child 
+	           if(H[j*2]>H[j*2+1]) k=j*2; //left is greater 
+	           else      k=j*2+1;//right is greater 
+	       }//end of if 
+         else  if(j*2<=i)   { k=j*2 ; }
+         
+	      if(j!=k && H[j]<H[k]) //swap H[j] & H[k]	 
+            {  T=H[k]; H[k]=H[j]; H[j]=T;
+                cout<<"\nswap"<<H[j]<<" "<<H[k];
+	          j=k; }
+         else break; 
+	  }//end of inner while
+	    
+   }//end of outer while 
+ cout<<endl;
+ for(i=0;i<=H[0];i++) cout<<" "<<H[i];
+
+}
+int main()
+{
+Heap Hp;
+int n;
+char ch='y';
+while(ch=='y')
+{
+ cout<<"\n Enter Number ";  cin>>n;
+ Hp.insert(n);
+ cout<<"\n Add more number(y/n)  :";
+ cin>>ch;
+ }
+
+cout<<"\nHeap Sort : ";
+Hp.Sort();
+return 1;
+}
+
+
+
+
+/************OUTPUT********************
+
+ Enter Number 15
+
+
+i :1
+h[0] 1
+ 1 15
+ Add more number(y/n)  :y
+
+ Enter Number 20
+
+
+i :2
+h[0] 2
+ 2 20 15
+ Add more number(y/n)  :y
+
+ Enter Number 7
+
+
+i :3
+h[0] 3
+ 3 20 15 7
+ Add more number(y/n)  :y
+
+ Enter Number 9
+
+
+i :4
+h[0] 4
+ 4 20 15 7 9
+ Add more number(y/n)  :y
+
+ Enter Number 30
+
+
+i :5
+h[0] 5
+ 5 30 20 7 9 15
+ Add more number(y/n)  :y
+
+ Enter Number 5
+
+
+i :6
+h[0] 6
+ 6 30 20 7 9 15 5
+ Add more number(y/n)  :y
+
+ Enter Number 40
+
+
+i :7
+h[0] 7
+ 7 40 20 30 9 15 5 7
+ Add more number(y/n)  :y
+
+ Enter Number 25
+
+
+i :8
+h[0] 8
+ 8 40 25 30 20 15 5 7 9
+ Add more number(y/n)  :y
+
+ Enter Number 44
+
+
+i :9
+h[0] 9
+ 9 44 40 30 25 15 5 7 9 20
+ Add more number(y/n)  :n
+
+Heap Sort : 
+______________________
+swap40 20
+swap25 20
+______________________
+swap30 9
+______________________
+swap25 7
+swap20 7
+______________________
+swap20 5
+swap15 5
+______________________
+swap15 5
+swap7 5
+______________________
+swap9 5
+______________________
+swap7 5
+______________________
+ 9 5 7 9 15 20 25 30 40 44 
+******************************************/
